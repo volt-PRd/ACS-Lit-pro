@@ -17,7 +17,7 @@
 
 plugins {
   id("java-library")
-  id("com.tom.rv2ide.build.propsparser")
+  id("com.ACSlit.pro.build.propsparser")
 }
 
 java {

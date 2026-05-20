@@ -77,7 +77,7 @@ import jdkx.tools.StandardJavaFileManager;
 import jdkx.tools.StandardJavaFileManager.PathFactory;
 import jdkx.tools.StandardLocation;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 
 import openjdk.tools.javac.code.Lint;
 import openjdk.tools.javac.code.Lint.LintCategory;
@@ -1931,7 +1931,7 @@ public class Locations {
                     FileSystem jrtfs;
 
                     if (openjdk.tools.javac.util.PlatformUtils.isAndroid()) {
-                        jrtfs = com.tom.rv2ide.zipfs2.AndroidFsProvider.INSTANCE.jrtFileSystem();
+                        jrtfs = com.ACSlit.pro.zipfs2.AndroidFsProvider.INSTANCE.jrtFileSystem();
                     } else if (isCurrentPlatform(systemJavaHome)) {
                         jrtfs = FileSystems.getFileSystem(jrtURI);
                     } else {

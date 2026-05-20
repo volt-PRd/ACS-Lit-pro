@@ -16,7 +16,7 @@
  */
 
 
-import com.tom.rv2ide.build.config.BuildConfig
+import com.ACSlit.pro.build.config.BuildConfig
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {

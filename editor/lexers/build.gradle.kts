@@ -16,8 +16,8 @@
  */
 
 
-import com.tom.rv2ide.plugins.LexerGeneratorPlugin
-import com.tom.rv2ide.build.config.BuildConfig
+import com.ACSlit.pro.plugins.LexerGeneratorPlugin
+import com.ACSlit.pro.build.config.BuildConfig
 
 plugins {
   id("java-library")

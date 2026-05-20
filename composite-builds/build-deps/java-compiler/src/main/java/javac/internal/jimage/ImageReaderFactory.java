@@ -25,7 +25,7 @@
 
 package javac.internal.jimage;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

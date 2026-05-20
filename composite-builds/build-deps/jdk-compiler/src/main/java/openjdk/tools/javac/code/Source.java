@@ -30,7 +30,7 @@ import java.util.*;
 import jdkx.lang.model.SourceVersion;
 import static jdkx.lang.model.SourceVersion.*;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 import openjdk.tools.javac.jvm.Target;
 import openjdk.tools.javac.resources.CompilerProperties.Errors;
 import openjdk.tools.javac.resources.CompilerProperties.Fragments;

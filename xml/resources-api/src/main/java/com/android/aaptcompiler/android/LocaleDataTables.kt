@@ -1,6 +1,6 @@
 package com.android.aaptcompiler.android
 
-import com.tom.rv2ide.utils.intByteMapOf
+import com.ACSlit.pro.utils.intByteMapOf
 
 internal val SCRIPT_CODES =
     arrayOf(

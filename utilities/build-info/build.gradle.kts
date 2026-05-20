@@ -17,13 +17,13 @@
 
 
 import com.android.SdkConstants
-import com.tom.rv2ide.build.config.AGP_VERSION_MINIMUM
-import com.tom.rv2ide.build.config.BuildConfig
-import com.tom.rv2ide.build.config.ProjectConfig
-import com.tom.rv2ide.build.config.VersionUtils
-import com.tom.rv2ide.build.config.downloadVersion
-import com.tom.rv2ide.build.config.replaceContents
-import com.tom.rv2ide.build.config.simpleVersionName
+import com.ACSlit.pro.build.config.AGP_VERSION_MINIMUM
+import com.ACSlit.pro.build.config.BuildConfig
+import com.ACSlit.pro.build.config.ProjectConfig
+import com.ACSlit.pro.build.config.VersionUtils
+import com.ACSlit.pro.build.config.downloadVersion
+import com.ACSlit.pro.build.config.replaceContents
+import com.ACSlit.pro.build.config.simpleVersionName
 
 plugins {
   //noinspection JavaPluginLanguageLevel

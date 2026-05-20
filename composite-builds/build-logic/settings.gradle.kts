@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 
   includeBuild("../build-deps-common") {
     dependencySubstitution {
-      substitute(module("com.tom.rv2ide.build:desugaring-core"))
+      substitute(module("com.ACSlit.pro.build:desugaring-core"))
         .using(project(":desugaring-core"))
     }
   }

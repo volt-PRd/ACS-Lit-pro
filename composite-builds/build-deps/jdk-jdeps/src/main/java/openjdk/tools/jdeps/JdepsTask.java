@@ -30,7 +30,7 @@ import static openjdk.tools.jdeps.Analyzer.Type.*;
 import static openjdk.tools.jdeps.JdepsWriter.*;
 import static java.util.stream.Collectors.*;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -21,9 +21,9 @@
  */
 package io.github.rosemoe.sora.editor.ts
 
-import com.tom.rv2ide.treesitter.TSLanguage
-import com.tom.rv2ide.treesitter.TSQuery
-import com.tom.rv2ide.treesitter.TSQueryError
+import com.ACSlit.pro.treesitter.TSLanguage
+import com.ACSlit.pro.treesitter.TSQuery
+import com.ACSlit.pro.treesitter.TSQueryError
 import io.github.rosemoe.sora.editor.ts.predicate.Predicator
 import io.github.rosemoe.sora.editor.ts.predicate.TsPredicate
 import io.github.rosemoe.sora.editor.ts.predicate.builtin.MatchPredicate

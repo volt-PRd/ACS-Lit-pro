@@ -28,7 +28,7 @@ package openjdk.tools.jdeps;
 import static openjdk.tools.jdeps.Module.trace;
 import static java.util.stream.Collectors.*;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 
 import openjdk.tools.classfile.Dependency;
 

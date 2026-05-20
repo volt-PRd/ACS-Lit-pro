@@ -17,7 +17,7 @@
 
 
 import com.google.protobuf.gradle.id
-import com.tom.rv2ide.build.config.BuildConfig
+import com.ACSlit.pro.build.config.BuildConfig
 
 plugins {
     id("com.android.library")

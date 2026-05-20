@@ -25,7 +25,7 @@
 
 package jdkx.lang.model;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 
 /**
  * Source versions of the Java programming language.

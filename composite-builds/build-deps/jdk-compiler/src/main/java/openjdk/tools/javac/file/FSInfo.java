@@ -25,7 +25,7 @@
 
 package openjdk.tools.javac.file;
 
-import com.tom.rv2ide.zipfs2.AndroidFsProvider;
+import com.ACSlit.pro.zipfs2.AndroidFsProvider;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;

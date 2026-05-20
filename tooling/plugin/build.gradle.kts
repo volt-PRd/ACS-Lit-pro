@@ -15,9 +15,9 @@
  *   along with AndroidCodeStudio.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import com.tom.rv2ide.build.config.AGP_VERSION_MINIMUM
-import com.tom.rv2ide.build.config.BuildConfig
-import com.tom.rv2ide.build.config.ProjectConfig
+import com.ACSlit.pro.build.config.AGP_VERSION_MINIMUM
+import com.ACSlit.pro.build.config.BuildConfig
+import com.ACSlit.pro.build.config.ProjectConfig
 
 plugins {
     id("java-gradle-plugin")

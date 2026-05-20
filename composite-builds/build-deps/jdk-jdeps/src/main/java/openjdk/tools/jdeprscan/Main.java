@@ -62,7 +62,7 @@ import jdkx.tools.StandardJavaFileManager;
 import jdkx.tools.StandardLocation;
 import jdkx.tools.ToolProvider;
 
-import com.tom.rv2ide.javac.config.JavacConfigProvider;
+import com.ACSlit.pro.javac.config.JavacConfigProvider;
 import openjdk.tools.javac.file.JavacFileManager;
 import openjdk.tools.javac.platform.JDKPlatformProvider;
 

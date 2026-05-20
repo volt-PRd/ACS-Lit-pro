@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tom.rv2ide.window.WindowManager;
-import com.tom.rv2ide.window.WindowMetrics;
+import com.ACSlit.pro.window.WindowManager;
+import com.ACSlit.pro.window.WindowMetrics;
 import com.termux.shared.logger.Logger;
 
 public class ViewUtils {

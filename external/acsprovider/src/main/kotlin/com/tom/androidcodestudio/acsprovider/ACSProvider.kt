@@ -23,7 +23,7 @@ import com.tom.androidcodestudio.acsprovider.models.ACSConfig
 import com.tom.androidcodestudio.acsprovider.models.PackageEntry
 import com.tom.androidcodestudio.acsprovider.utils.DownloadCallback
 import com.tom.androidcodestudio.acsprovider.utils.HashUtils
-import com.tom.rv2ide.utils.Environment.TMP_DIR as TMPDIR
+import com.ACSlit.pro.utils.Environment.TMP_DIR as TMPDIR
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

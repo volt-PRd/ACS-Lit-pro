@@ -12,8 +12,8 @@
  */
 package org.eclipse.lemminx.utils;
 
-import com.tom.rv2ide.models.Position;
-import com.tom.rv2ide.models.Range;
+import com.ACSlit.pro.models.Position;
+import com.ACSlit.pro.models.Range;
 
 import java.util.List;
 import java.util.function.Predicate;

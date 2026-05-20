@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import com.tom.rv2ide.preferences.internal.GeneralPreferences;
-import com.tom.rv2ide.utils.ResourceUtilsKt;
+import com.ACSlit.pro.preferences.internal.GeneralPreferences;
+import com.ACSlit.pro.utils.ResourceUtilsKt;
 
 public class ThemeUtils {
 

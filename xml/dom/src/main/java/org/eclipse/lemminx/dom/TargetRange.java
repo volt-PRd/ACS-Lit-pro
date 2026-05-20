@@ -10,7 +10,7 @@
  */
 package org.eclipse.lemminx.dom;
 
-import com.tom.rv2ide.models.Range;
+import com.ACSlit.pro.models.Range;
 
 /** Target range API. */
 public interface TargetRange {

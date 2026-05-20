@@ -2,7 +2,7 @@
   <library
       name=":@@:core:common::release"
       jars="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/00469df37e00583cdc349d36bd2513f1/transformed/out/jars/classes.jar:/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/00469df37e00583cdc349d36bd2513f1/transformed/out/jars/libs/R.jar"
-      resolved="com.tom.rv2ide.core:common:1.0.0+gh.r03"
+      resolved="com.ACSlit.pro.core:common:1.0.0+gh.r03"
       folder="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/00469df37e00583cdc349d36bd2513f1/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
@@ -15,7 +15,7 @@
   <library
       name=":@@:core:resources::release"
       jars="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/79beae33b4a2bc1242f18f677c06779b/transformed/out/jars/classes.jar:/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/79beae33b4a2bc1242f18f677c06779b/transformed/out/jars/libs/R.jar"
-      resolved="com.tom.rv2ide.core:resources:1.0.0+gh.r03"
+      resolved="com.ACSlit.pro.core:resources:1.0.0+gh.r03"
       folder="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/79beae33b4a2bc1242f18f677c06779b/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
@@ -28,7 +28,7 @@
   <library
       name=":@@:event:eventbus-android::release"
       jars="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/1df71a267bdf49beda6334fff213ef3d/transformed/out/jars/classes.jar:/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/1df71a267bdf49beda6334fff213ef3d/transformed/out/jars/libs/R.jar"
-      resolved="com.tom.rv2ide.event:eventbus-android:1.0.0+gh.r03"
+      resolved="com.ACSlit.pro.event:eventbus-android:1.0.0+gh.r03"
       folder="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/1df71a267bdf49beda6334fff213ef3d/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
@@ -41,7 +41,7 @@
   <library
       name=":@@:event:eventbus-events::release"
       jars="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/2d6aab800fc893bc48933afc5be52898/transformed/out/jars/classes.jar:/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/2d6aab800fc893bc48933afc5be52898/transformed/out/jars/libs/R.jar"
-      resolved="com.tom.rv2ide.event:eventbus-events:1.0.0+gh.r03"
+      resolved="com.ACSlit.pro.event:eventbus-events:1.0.0+gh.r03"
       folder="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/2d6aab800fc893bc48933afc5be52898/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"
@@ -54,7 +54,7 @@
   <library
       name=":@@:utilities:flashbar::release"
       jars="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/23b6d8ec24a24a89df56380926bcb5fc/transformed/out/jars/classes.jar:/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/23b6d8ec24a24a89df56380926bcb5fc/transformed/out/jars/libs/R.jar"
-      resolved="com.tom.rv2ide.utilities:flashbar:1.0.0+gh.r03"
+      resolved="com.ACSlit.pro.utilities:flashbar:1.0.0+gh.r03"
       folder="/data/data/com.termux/files/home/.gradle/caches/8.13/transforms/23b6d8ec24a24a89df56380926bcb5fc/transformed/out"
       manifest="AndroidManifest.xml"
       resFolder="res"

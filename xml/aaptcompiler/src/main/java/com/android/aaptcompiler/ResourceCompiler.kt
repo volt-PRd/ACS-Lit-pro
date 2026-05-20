@@ -21,8 +21,8 @@ import com.android.aaptcompiler.ResourceFile.Type.ProtoXml
 import com.android.aaptcompiler.ResourceFile.Type.Unknown
 import com.android.aaptcompiler.proto.serializeTableToPb
 import com.android.utils.FileUtils
-import com.tom.rv2ide.layoutlib.resources.ResourceType
-import com.tom.rv2ide.layoutlib.resources.ResourceVisibility
+import com.ACSlit.pro.layoutlib.resources.ResourceType
+import com.ACSlit.pro.layoutlib.resources.ResourceVisibility
 import java.io.File
 
 private const val VALUES_DIRECTORY_PREFIX = "values"

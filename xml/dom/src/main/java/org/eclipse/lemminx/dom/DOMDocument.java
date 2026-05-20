@@ -17,8 +17,8 @@
  */
 package org.eclipse.lemminx.dom;
 
-import com.tom.rv2ide.models.Position;
-import com.tom.rv2ide.models.Range;
+import com.ACSlit.pro.models.Position;
+import com.ACSlit.pro.models.Range;
 
 import java.net.URI;
 import java.net.URISyntaxException;

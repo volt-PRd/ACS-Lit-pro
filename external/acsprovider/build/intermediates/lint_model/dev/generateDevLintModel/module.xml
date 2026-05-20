@@ -3,7 +3,7 @@
     dir="/data/data/com.termux/files/home/MinAndroidProjects/TomAndroidIDE/external/acsprovider"
     name=":external:acsprovider"
     type="LIBRARY"
-    maven="com.tom.rv2ide.external:acsprovider:1.0.0+gh.r03"
+    maven="com.ACSlit.pro.external:acsprovider:1.0.0+gh.r03"
     agpVersion="8.13.0"
     buildFolder="build"
     bootClassPath="/data/data/com.termux/files/home/android-sdk/platforms/android-36/android.jar:/data/data/com.termux/files/home/android-sdk/build-tools/35.0.0/core-lambda-stubs.jar"
