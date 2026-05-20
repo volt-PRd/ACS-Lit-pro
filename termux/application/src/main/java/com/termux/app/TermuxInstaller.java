@@ -106,6 +106,16 @@ public final class TermuxInstaller {
             if (TermuxFileUtils.isTermuxPrefixDirectoryEmpty()) {
                 Logger.logInfo(LOG_TAG, "The termux prefix directory \"" + TERMUX_PREFIX_DIR_PATH + "\" exists but is empty or only contains specific unimportant files.");
             } else {
+                // MIGRATION FIX: Even if bootstrap already exists, check for old package
+                // paths (com.tom.rv2ide) and replace them with the current package name.
+                // This is needed for users who updated from an older version where
+                // the bootstrap was extracted with the original package name hardcoded.
+                try {
+                    migrateOldPackagePathsIfNeeded();
+                    fixDirectoryPermissions();
+                } catch (Exception e) {
+                    Logger.logError(LOG_TAG, "Failed to apply migration fixes: " + e.getMessage());
+                }
                 whenDone.run();
                 return;
             }
@@ -421,6 +431,55 @@ public final class TermuxInstaller {
         Os.chmod(filesDir + "/usr/var", 0711);       // $PREFIX/var
 
         Logger.logInfo(LOG_TAG, "Directory permissions fixed successfully (0711).");
+    }
+
+    /**
+     * Check if any files in the prefix still contain the old package name path.
+     * If found, replace all occurrences with the current package path.
+     * This runs on every app start to handle migration from older versions.
+     */
+    private static void migrateOldPackagePathsIfNeeded() {
+        String oldPath = "/data/data/com.tom.rv2ide";
+        String newPath = TermuxConstants.TERMUX_INTERNAL_PRIVATE_APP_DATA_DIR_PATH;
+        String prefixDir = TERMUX_PREFIX_DIR_PATH;
+
+        if (oldPath.equals(newPath)) return;
+
+        // Check if the env file has old paths
+        File envFile = new File(TermuxConstants.TERMUX_ENV_FILE_PATH);
+        if (envFile.exists()) {
+            try {
+                String content = readFileToString(envFile);
+                if (content.contains(oldPath)) {
+                    String newContent = content.replace(oldPath, newPath);
+                    writeStringToFile(envFile, newContent);
+                    Logger.logInfo(LOG_TAG, "Migrated package path in env file: " + envFile.getAbsolutePath());
+                }
+            } catch (Exception e) {
+                Logger.logError(LOG_TAG, "Failed to migrate env file: " + e.getMessage());
+            }
+        }
+
+        // Check the temp env file too
+        File envTempFile = new File(TermuxConstants.TERMUX_ENV_TEMP_FILE_PATH);
+        if (envTempFile.exists()) {
+            try {
+                String content = readFileToString(envTempFile);
+                if (content.contains(oldPath)) {
+                    String newContent = content.replace(oldPath, newPath);
+                    writeStringToFile(envTempFile, newContent);
+                    Logger.logInfo(LOG_TAG, "Migrated package path in temp env file: " + envTempFile.getAbsolutePath());
+                }
+            } catch (Exception e) {
+                Logger.logError(LOG_TAG, "Failed to migrate temp env file: " + e.getMessage());
+            }
+        }
+
+        // Scan all shell scripts in etc/ directory
+        File etcDir = new File(prefixDir + "/etc");
+        if (etcDir.exists()) {
+            fixPathsRecursive(etcDir, oldPath, newPath);
+        }
     }
 
     /**
