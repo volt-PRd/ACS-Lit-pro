@@ -21,8 +21,8 @@
  */
 package io.github.rosemoe.sora.editor.ts
 
-import com.ACSlit.pro.treesitter.TSQueryCursor
-import com.ACSlit.pro.treesitter.TSTree
+import com.tom.rv2ide.treesitter.TSQueryCursor
+import com.tom.rv2ide.treesitter.TSTree
 import com.ACSlit.pro.treesitter.api.TreeSitterQueryCapture
 import com.ACSlit.pro.treesitter.api.safeExecQueryCursor
 import io.github.rosemoe.sora.lang.brackets.BracketsProvider

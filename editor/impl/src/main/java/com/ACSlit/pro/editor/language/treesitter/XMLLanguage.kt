@@ -22,7 +22,7 @@ import com.ACSlit.pro.editor.language.treesitter.TreeSitterLanguage.Factory
 import com.ACSlit.pro.lsp.api.ILanguageServer
 import com.ACSlit.pro.lsp.api.ILanguageServerRegistry
 import com.ACSlit.pro.lsp.xml.XMLLanguageServer
-import com.ACSlit.pro.treesitter.xml.TSLanguageXml
+import com.tom.rv2ide.treesitter.xml.TSLanguageXml
 import io.github.rosemoe.sora.lang.Language.INTERRUPTION_LEVEL_STRONG
 import io.github.rosemoe.sora.util.MyCharacter
 

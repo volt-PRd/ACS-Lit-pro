@@ -17,9 +17,9 @@
 
 package com.ACSlit.pro.editor.language.treesitter
 
-import com.ACSlit.pro.treesitter.TSLanguage
-import com.ACSlit.pro.treesitter.TSQuery
-import com.ACSlit.pro.treesitter.TSQueryError
+import com.tom.rv2ide.treesitter.TSLanguage
+import com.tom.rv2ide.treesitter.TSQuery
+import com.tom.rv2ide.treesitter.TSQueryError
 import io.github.rosemoe.sora.editor.ts.TsLanguageSpec
 import java.io.Closeable
 

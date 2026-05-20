@@ -24,7 +24,7 @@ import com.ACSlit.pro.editor.language.treesitter.predicates.EqualPredicate
 import com.ACSlit.pro.editor.language.treesitter.predicates.MatchPredicate
 import com.ACSlit.pro.editor.language.treesitter.predicates.NotEqualPredicate
 import com.ACSlit.pro.editor.language.treesitter.predicates.NotMatchPredicate
-import com.ACSlit.pro.treesitter.TSLanguage
+import com.tom.rv2ide.treesitter.TSLanguage
 import io.github.rosemoe.sora.editor.ts.LocalsCaptureSpec
 import io.github.rosemoe.sora.editor.ts.TsLanguageSpec
 import java.io.FileNotFoundException

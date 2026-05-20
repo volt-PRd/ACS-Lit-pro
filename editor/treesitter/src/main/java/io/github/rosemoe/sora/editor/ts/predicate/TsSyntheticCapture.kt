@@ -21,7 +21,7 @@
  */
 package io.github.rosemoe.sora.editor.ts.predicate
 
-import com.ACSlit.pro.treesitter.TSNode
+import com.tom.rv2ide.treesitter.TSNode
 
 data class TsSyntheticCapture(
     val captureName: String,

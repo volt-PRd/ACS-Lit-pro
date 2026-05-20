@@ -503,7 +503,7 @@
   <string name="updater_available_variants">المتغيرات المتاحة: %s</string>
   <string name="updater_preparing_download">جاري التحضير للتنزيل...</string>
   <string name="updater_progress_format">%d ميجابايت / %d ميجابايت</string>
-  <string name="updater_enable_install_permission">يرجى تمكين 'تثبيت التطبيقات غير المعروفة' والمحاولة مرة أخرى</string>
+  <string name="updater_enable_install_permission">يرجى تمكين \"تثبيت التطبيقات غير المعروفة\" والمحاولة مرة أخرى</string>
   <string name="updater_http_error">خطأ HTTP: %d</string>
   <string name="updater_fetch_error">خطأ في جلب معلومات التحديث</string>
   <string name="updater_parse_error">خطأ في تحليل معلومات التحديث</string>

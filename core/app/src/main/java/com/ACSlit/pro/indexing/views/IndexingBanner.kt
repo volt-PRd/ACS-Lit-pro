@@ -24,8 +24,11 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.ACSlit.pro.databinding.LayoutIndexingBannerBinding
+import com.ACSlit.pro.R
 
 /*
  * Banner view to show indexing progress and custom notifications
@@ -38,7 +41,7 @@ class IndexingBanner private constructor(
   @DrawableRes private val iconResId: Int?
 ) {
 
-  private var binding: LayoutIndexingBannerBinding? = null
+  private var binding: View? = null
   private var isShowing = false
 
   // Backward compatibility: Constructor for existing usage
@@ -53,18 +56,19 @@ class IndexingBanner private constructor(
 
     val rootView = activity.findViewById<ViewGroup>(android.R.id.content)
 
-    // Inflate layout with data binding
-    binding = LayoutIndexingBannerBinding.inflate(LayoutInflater.from(activity)).apply {
-      title = initialTitle ?: "Indexing project..."
-      message = initialMessage ?: "Preparing..."
-      
-      // Set icon manually
-      this@IndexingBanner.iconResId?.let {
-        iconImageView.setImageResource(it)
-        iconImageView.visibility = android.view.View.VISIBLE
-      } ?: run {
-        iconImageView.visibility = android.view.View.GONE
+    // Inflate layout
+    binding = LayoutInflater.from(activity).inflate(R.layout.layout_indexing_banner, null, false)
+    binding?.findViewById<TextView>(R.id.titleTextView)?.text = initialTitle ?: "Indexing project..."
+    binding?.findViewById<TextView>(R.id.subtitleTextView)?.text = initialMessage ?: "Preparing..."
+
+    // Set icon manually
+    this@IndexingBanner.iconResId?.let {
+      binding?.findViewById<ImageView>(R.id.iconImageView)?.apply {
+        setImageResource(it)
+        visibility = android.view.View.VISIBLE
       }
+    } ?: run {
+      binding?.findViewById<ImageView>(R.id.iconImageView)?.visibility = android.view.View.GONE
     }
 
     // Add to root view with proper layout params
@@ -72,23 +76,23 @@ class IndexingBanner private constructor(
       ViewGroup.LayoutParams.MATCH_PARENT,
       ViewGroup.LayoutParams.WRAP_CONTENT
     )
-    rootView.addView(binding?.root, 0, layoutParams)
+    rootView.addView(binding, 0, layoutParams)
     
     // Get status bar height and apply padding after view is added
-    binding?.bannerContainer?.post {
+    binding?.post {
       ViewCompat.getRootWindowInsets(rootView)?.let { insets ->
         val statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-        binding?.bannerContainer?.setPadding(
-          binding?.bannerContainer?.paddingLeft ?: 0,
-          (binding?.bannerContainer?.paddingTop ?: 0) + statusBarHeight,
-          binding?.bannerContainer?.paddingRight ?: 0,
-          binding?.bannerContainer?.paddingBottom ?: 0
+        binding?.setPadding(
+          binding?.paddingLeft ?: 0,
+          (binding?.paddingTop ?: 0) + statusBarHeight,
+          binding?.paddingRight ?: 0,
+          binding?.paddingBottom ?: 0
         )
       }
     }
 
     // Dynamic Island style animation - elastic drop down
-    binding?.bannerContainer?.apply {
+    binding?.apply {
       // Start from collapsed (scaled down)
       scaleY = 0f
       scaleX = 0.95f
@@ -132,7 +136,7 @@ class IndexingBanner private constructor(
     
     // Auto-hide if duration specified
     autoHideAfterMillis?.let { duration ->
-      binding?.root?.postDelayed({
+      binding?.postDelayed({
         hide()
       }, duration)
     }
@@ -142,21 +146,21 @@ class IndexingBanner private constructor(
    * Update the subtitle text (progress message)
    */
   fun updateMessage(message: String) {
-    binding?.message = message
+    binding?.findViewById<TextView>(R.id.subtitleTextView)?.text = message
   }
 
   /**
    * Update the title text
    */
   fun updateTitle(title: String) {
-    binding?.title = title
+    binding?.findViewById<TextView>(R.id.titleTextView)?.text = title
   }
 
   /**
    * Update the icon
    */
   fun updateIcon(@DrawableRes iconResId: Int?) {
-    binding?.iconImageView?.let { imageView ->
+    binding?.findViewById<ImageView>(R.id.iconImageView)?.let { imageView ->
       if (iconResId != null && iconResId != 0) {
         imageView.setImageResource(iconResId)
         imageView.visibility = android.view.View.VISIBLE
@@ -172,7 +176,7 @@ class IndexingBanner private constructor(
   fun hide() {
     if (!isShowing || binding == null) return
 
-    val banner = binding?.bannerContainer ?: return
+    val banner = binding ?: return
     val rootView = activity.findViewById<ViewGroup>(android.R.id.content)
 
     banner.pivotY = 0f
@@ -207,7 +211,7 @@ class IndexingBanner private constructor(
       
       // Remove from view hierarchy after animation
       banner.postDelayed({
-        rootView.removeView(binding?.root)
+        rootView.removeView(binding)
         binding = null
         isShowing = false
       }, 500)

@@ -17,8 +17,8 @@
 
 package com.ACSlit.pro.treesitter.api
 
-import com.ACSlit.pro.treesitter.TSInputEdit
-import com.ACSlit.pro.treesitter.TSPoint
+import com.tom.rv2ide.treesitter.TSInputEdit
+import com.tom.rv2ide.treesitter.TSPoint
 import com.ACSlit.pro.utils.DefaultRecyclable
 import com.ACSlit.pro.utils.RecyclableObjectPool
 

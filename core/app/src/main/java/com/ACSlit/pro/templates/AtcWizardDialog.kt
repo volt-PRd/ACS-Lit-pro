@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.provider.DocumentsContractCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +21,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.transition.MaterialSharedAxis
 import com.tom.androidcodestudio.project.manager.builder.LanguageType
 import com.ACSlit.pro.R
 import com.ACSlit.pro.activities.FolderPickerActivity
 import com.ACSlit.pro.activities.IDEConfigurations
-import com.ACSlit.pro.databinding.DialogAtcWizardBinding
 import com.ACSlit.pro.templates.android.Template
 import com.ACSlit.pro.templates.android.TemplateOptions
 import com.ACSlit.pro.templates.android.TemplateRegistry
@@ -45,7 +48,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
 
   private var listener: AtcInterface.TemplateCreationListener? = null
   private var selectedTemplate: Template? = null
-  private var _binding: DialogAtcWizardBinding? = null
+  private var _binding: View? = null
   private val binding
     get() = _binding!!
 
@@ -58,55 +61,57 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
     val ctx = requireContext()
 
     _binding =
-        DataBindingUtil.inflate(LayoutInflater.from(ctx), R.layout.dialog_atc_wizard, null, false)
+        LayoutInflater.from(ctx).inflate(R.layout.dialog_atc_wizard, null, false)
 
     setupSwitches()
     setupInputs(ctx)
     setupTemplatesGrid(ctx)
     setupButtons(ctx)
 
-    dialog.setContentView(binding.root)
+    dialog.setContentView(binding)
     return dialog
   }
 
   private fun setupSwitches() {
-    with(binding) {
-      useCMakeSwitch.visibility = View.GONE
-      useCMakeSwitch.isChecked = Options.OPT_BUILD_SYSTEM_USE_CMAKE
-      useKtsSwitch.isChecked = Options.OPT_USE_GRADLE_KTS
+    val useCMakeSwitch = binding.findViewById<MaterialSwitch>(R.id.useCMakeSwitch)
+    val useKtsSwitch = binding.findViewById<MaterialSwitch>(R.id.useKtsSwitch)
+    val ndkVersionButton = binding.findViewById<MaterialButton>(R.id.ndkVersionButton)
 
-      useCMakeSwitch.setOnCheckedChangeListener { _, isChecked ->
-        Options.OPT_BUILD_SYSTEM_USE_CMAKE = isChecked
-        if (isChecked) validateAndSelectCMake()
-      }
+    useCMakeSwitch.visibility = View.GONE
+    useCMakeSwitch.isChecked = Options.OPT_BUILD_SYSTEM_USE_CMAKE
+    useKtsSwitch.isChecked = Options.OPT_USE_GRADLE_KTS
 
-      useKtsSwitch.setOnCheckedChangeListener { _, isChecked ->
-        Options.OPT_USE_GRADLE_KTS = isChecked
-      }
-
-      ndkVersionButton.visibility = View.GONE
-      ndkVersionButton.setOnClickListener { showNdkVersionPicker(requireContext()) }
+    useCMakeSwitch.setOnCheckedChangeListener { _, isChecked ->
+      Options.OPT_BUILD_SYSTEM_USE_CMAKE = isChecked
+      if (isChecked) validateAndSelectCMake()
     }
+
+    useKtsSwitch.setOnCheckedChangeListener { _, isChecked ->
+      Options.OPT_USE_GRADLE_KTS = isChecked
+    }
+
+    ndkVersionButton.visibility = View.GONE
+    ndkVersionButton.setOnClickListener { showNdkVersionPicker(requireContext()) }
   }
 
   private fun setupInputs(ctx: Context) {
     val lastSaveLocation = WizardPreferences.getLastSaveLocation(ctx)
-    binding.saveLocationInput.setText(lastSaveLocation ?: Environment.PROJECTS_DIR.absolutePath)
+    binding.findViewById<TextInputEditText>(R.id.saveLocationInput).setText(lastSaveLocation ?: Environment.PROJECTS_DIR.absolutePath)
 
-    binding.projectNameInput.addTextChangedListener(
+    binding.findViewById<TextInputEditText>(R.id.projectNameInput).addTextChangedListener(
         SimpleTextWatcher {
           updatePackageNameFromProject(it)
           validateProjectName()
         }
     )
 
-    binding.saveLocationInput.addTextChangedListener(SimpleTextWatcher { validateProjectName() })
+    binding.findViewById<TextInputEditText>(R.id.saveLocationInput).addTextChangedListener(SimpleTextWatcher { validateProjectName() })
 
-    binding.saveLocationLayout.setEndIconOnClickListener {
+    binding.findViewById<TextInputLayout>(R.id.saveLocationLayout).setEndIconOnClickListener {
       (activity as? FragmentActivity)?.let { act ->
         FolderPickerActivity.onFolderPicked = { uriStr ->
           val path = SafResolver.resolveToPath(ctx, uriStr)
-          binding.saveLocationInput.setText(path)
+          binding.findViewById<TextInputEditText>(R.id.saveLocationInput).setText(path)
           WizardPreferences.setLastSaveLocation(ctx, path)
         }
         act.startActivity(Intent(act, FolderPickerActivity::class.java))
@@ -118,7 +123,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
 
   private fun setupDropdowns(ctx: Context) {
     val languageItems = arrayOf(ctx.getString(R.string.kotlin), ctx.getString(R.string.java))
-    binding.languageInput.apply {
+    binding.findViewById<MaterialAutoCompleteTextView>(R.id.languageInput).apply {
       setSimpleItems(languageItems)
       setText(languageItems[0], false)
       setOnClickListener { showDropDown() }
@@ -128,7 +133,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
     val minSdkDisplay = sdkValues.map { it.displayName() }.toTypedArray()
     val defIdx = sdkValues.indexOfFirst { it.api == 21 }.coerceAtLeast(0)
     Options.OPT_MIN_SDK = sdkValues.getOrNull(defIdx)?.api ?: 21
-    binding.minSdkInput.apply {
+    binding.findViewById<MaterialAutoCompleteTextView>(R.id.minSdkInput).apply {
       setSimpleItems(minSdkDisplay)
       setText(minSdkDisplay[defIdx], false)
       setOnClickListener { showDropDown() }
@@ -138,7 +143,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
     }
 
     val nativeLangValues = arrayOf("C++", "C")
-    binding.nativeLanguageInput.apply {
+    binding.findViewById<MaterialAutoCompleteTextView>(R.id.nativeLanguageInput).apply {
       setSimpleItems(nativeLangValues)
       setText(nativeLangValues[0], false)
       setOnClickListener { showDropDown() }
@@ -150,8 +155,8 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
 
   private fun setupTemplatesGrid(ctx: Context) {
     val templates = TemplateRegistry.getAllTemplates()
-    binding.templatesGrid.layoutManager = GridLayoutManager(ctx, 2)
-    binding.templatesGrid.adapter =
+    binding.findViewById<RecyclerView>(R.id.templatesGrid).layoutManager = GridLayoutManager(ctx, 2)
+    binding.findViewById<RecyclerView>(R.id.templatesGrid).adapter =
         TemplateAdapter(ctx, templates) { template ->
           selectedTemplate = template
           template.configureOptions()
@@ -165,21 +170,21 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
   }
 
   private fun setupButtons(ctx: Context) {
-    binding.backButton.setOnClickListener {
-      binding.root.post {
+    binding.findViewById<MaterialButton>(R.id.backButton).setOnClickListener {
+      binding.post {
         SheetTransitions.slide(
-            binding.wizardContainer,
-            binding.pageOptions,
-            binding.pageTemplates,
+            binding.findViewById<ViewGroup>(R.id.wizardContainer),
+            binding.findViewById<ViewGroup>(R.id.pageOptions),
+            binding.findViewById<ViewGroup>(R.id.pageTemplates),
             MaterialSharedAxis.X,
             false,
         )
-        binding.backButton.visibility = View.GONE
-        binding.createButton.visibility = View.GONE
+        binding.findViewById<MaterialButton>(R.id.backButton).visibility = View.GONE
+        binding.findViewById<MaterialButton>(R.id.createButton).visibility = View.GONE
       }
     }
 
-    binding.createButton.setOnClickListener { createProject(ctx) }
+    binding.findViewById<MaterialButton>(R.id.createButton).setOnClickListener { createProject(ctx) }
   }
 
   private fun validateAndSelectCMake() {
@@ -191,7 +196,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
       ) {
         startActivity(Intent(requireContext(), IDEConfigurations::class.java))
       }
-      binding.useCMakeSwitch.isChecked = false
+      binding.findViewById<MaterialSwitch>(R.id.useCMakeSwitch).isChecked = false
     } else {
       showCMakeVersionPicker(requireContext(), cmakeVersions)
     }
@@ -232,53 +237,53 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
   }
 
   private fun proceedToOptionsPage(ctx: Context) {
-    binding.root.post {
+    binding.post {
       val templateName = "My${selectedTemplate?.displayName?.replace(" ", "")}" ?: "MyProject"
       val packageSuffix =
           "my${selectedTemplate?.displayName?.replace(" ", ".")?.lowercase()}" ?: "myproject"
 
-      binding.projectNameInput.setText(templateName)
-      binding.packageNameInput.setText("com.example.$packageSuffix")
+      binding.findViewById<TextInputEditText>(R.id.projectNameInput).setText(templateName)
+      binding.findViewById<TextInputEditText>(R.id.packageNameInput).setText("com.example.$packageSuffix")
 
       val isNative = Options.OPT_IS_NATIVE_CPP
-      binding.useCMakeSwitch.visibility = if (isNative) View.VISIBLE else View.GONE
-      binding.nativeLanguageInputLayout.visibility = if (isNative) View.VISIBLE else View.GONE
-      binding.ndkVersionButton.visibility = if (isNative) View.VISIBLE else View.GONE
-      binding.ndkVersionButton.text = "NDK: ${Options.OPT_SELECTED_NDK_VERSION ?: "Auto"}"
+      binding.findViewById<MaterialSwitch>(R.id.useCMakeSwitch).visibility = if (isNative) View.VISIBLE else View.GONE
+      binding.findViewById<TextInputLayout>(R.id.nativeLanguageInputLayout).visibility = if (isNative) View.VISIBLE else View.GONE
+      binding.findViewById<MaterialButton>(R.id.ndkVersionButton).visibility = if (isNative) View.VISIBLE else View.GONE
+      binding.findViewById<MaterialButton>(R.id.ndkVersionButton).text = "NDK: ${Options.OPT_SELECTED_NDK_VERSION ?: "Auto"}"
 
       SheetTransitions.slide(
-          binding.wizardContainer,
-          binding.pageTemplates,
-          binding.pageOptions,
+          binding.findViewById<ViewGroup>(R.id.wizardContainer),
+          binding.findViewById<ViewGroup>(R.id.pageTemplates),
+          binding.findViewById<ViewGroup>(R.id.pageOptions),
           MaterialSharedAxis.X,
           true,
       )
-      binding.backButton.visibility = View.VISIBLE
-      binding.createButton.visibility = View.VISIBLE
+      binding.findViewById<MaterialButton>(R.id.backButton).visibility = View.VISIBLE
+      binding.findViewById<MaterialButton>(R.id.createButton).visibility = View.VISIBLE
     }
   }
 
   private fun createProject(ctx: Context) {
     val proj =
-        binding.projectNameInput.text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
+        binding.findViewById<TextInputEditText>(R.id.projectNameInput).text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
             ?: selectedTemplate?.displayName?.replace(" ", "")
             ?: "MyProject"
     val pkg =
-        binding.packageNameInput.text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
+        binding.findViewById<TextInputEditText>(R.id.packageNameInput).text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
             ?: "com.example.${selectedTemplate?.displayName?.replace(" ", ".")?.lowercase() ?: "myproject"}"
 
     var lang =
-        if (binding.languageInput.text?.toString()?.lowercase()?.startsWith("java") == true)
+        if (binding.findViewById<MaterialAutoCompleteTextView>(R.id.languageInput).text?.toString()?.lowercase()?.startsWith("java") == true)
             LanguageType.JAVA
         else LanguageType.KOTLIN
 
     val sdkValues = Sdk.values()
     val minSdkDisplay = sdkValues.map { it.displayName() }.toTypedArray()
-    val selectedIdx = minSdkDisplay.indexOf(binding.minSdkInput.text?.toString()).coerceAtLeast(0)
+    val selectedIdx = minSdkDisplay.indexOf(binding.findViewById<MaterialAutoCompleteTextView>(R.id.minSdkInput).text?.toString()).coerceAtLeast(0)
     val sdkApi = Options.OPT_MIN_SDK ?: 21
     
     val savePath =
-        binding.saveLocationInput.text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
+        binding.findViewById<TextInputEditText>(R.id.saveLocationInput).text?.toString()?.trim().takeUnless { it.isNullOrBlank() }
             ?: Environment.PROJECTS_DIR.absolutePath
     val projectDir = File(savePath, proj)
 
@@ -328,7 +333,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
         "Game projects must be saved in the Android Code Studio home directory to work correctly.",
         "Automatically switch",
     ) {
-      binding.saveLocationInput.setText(Environment.AT_ACSHOME_PROJECTS.toString())
+      binding.findViewById<TextInputEditText>(R.id.saveLocationInput).setText(Environment.AT_ACSHOME_PROJECTS.toString())
       WizardPreferences.setLastSaveLocation(
           requireContext(),
           Environment.AT_ACSHOME_PROJECTS.toString(),
@@ -337,11 +342,11 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
   }
 
   private fun validateProjectName() {
-    val projectName = binding.projectNameInput.text?.toString()?.trim().orEmpty()
-    val saveLocation = binding.saveLocationInput.text?.toString()?.trim().orEmpty()
+    val projectName = binding.findViewById<TextInputEditText>(R.id.projectNameInput).text?.toString()?.trim().orEmpty()
+    val saveLocation = binding.findViewById<TextInputEditText>(R.id.saveLocationInput).text?.toString()?.trim().orEmpty()
 
     if (projectName.isEmpty()) {
-      binding.projectNameLayout.error = null
+      binding.findViewById<TextInputLayout>(R.id.projectNameLayout).error = null
       return
     }
 
@@ -349,23 +354,23 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
 
     when {
       projectDir.exists() -> {
-        binding.projectNameLayout.error = "A project with this name already exists at this location"
-        binding.createButton.isEnabled = false
+        binding.findViewById<TextInputLayout>(R.id.projectNameLayout).error = "A project with this name already exists at this location"
+        binding.findViewById<MaterialButton>(R.id.createButton).isEnabled = false
       }
       !projectName.matches(Regex("^[a-zA-Z][a-zA-Z0-9_]*$")) -> {
-        binding.projectNameLayout.error =
+        binding.findViewById<TextInputLayout>(R.id.projectNameLayout).error =
             "Project name must start with a letter and contain only letters, numbers, and underscores"
-        binding.createButton.isEnabled = false
+        binding.findViewById<MaterialButton>(R.id.createButton).isEnabled = false
       }
       else -> {
-        binding.projectNameLayout.error = null
-        binding.createButton.isEnabled = true
+        binding.findViewById<TextInputLayout>(R.id.projectNameLayout).error = null
+        binding.findViewById<MaterialButton>(R.id.createButton).isEnabled = true
       }
     }
   }
 
   private fun updatePackageNameFromProject(projectName: CharSequence?) {
-    val current = binding.packageNameInput.text?.toString()?.trim().orEmpty()
+    val current = binding.findViewById<TextInputEditText>(R.id.packageNameInput).text?.toString()?.trim().orEmpty()
     if (current.isNotEmpty() && current.contains('.')) {
       val segs = current.split('.').toMutableList()
       segs[segs.lastIndex] =
@@ -375,7 +380,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
               ?.lowercase()
               ?.replace("[^a-zA-Z0-9_]".toRegex(), "")
               ?.ifEmpty { "app" } ?: "app"
-      binding.packageNameInput.setText(segs.joinToString("."))
+      binding.findViewById<TextInputEditText>(R.id.packageNameInput).setText(segs.joinToString("."))
     }
   }
 
@@ -396,7 +401,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
           val selectedVersion = versions[which]
           if (Check.validateNdkVersion(selectedVersion)) {
             Options.OPT_SELECTED_NDK_VERSION = selectedVersion
-            binding.ndkVersionButton.text = "NDK: $selectedVersion"
+            binding.findViewById<MaterialButton>(R.id.ndkVersionButton).text = "NDK: $selectedVersion"
             dialog.dismiss()
           } else {
             Toast.makeText(ctx, "Invalid NDK: $selectedVersion", Toast.LENGTH_SHORT).show()
@@ -422,7 +427,7 @@ class AtcWizardDialog : BottomSheetDialogFragment() {
             dialog.dismiss()
           } ?: Toast.makeText(ctx, "Invalid CMake: $selectedVersion", Toast.LENGTH_SHORT).show()
         }
-        .setNegativeButton("Cancel") { _, _ -> binding.useCMakeSwitch.isChecked = false }
+        .setNegativeButton("Cancel") { _, _ -> binding.findViewById<MaterialSwitch>(R.id.useCMakeSwitch).isChecked = false }
         .show()
   }
 

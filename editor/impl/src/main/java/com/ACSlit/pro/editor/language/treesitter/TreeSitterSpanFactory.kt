@@ -20,8 +20,8 @@ package com.ACSlit.pro.editor.language.treesitter
 import android.graphics.Color
 import androidx.core.graphics.ColorUtils
 import com.ACSlit.pro.editor.schemes.LanguageScheme
-import com.ACSlit.pro.treesitter.TSQuery
-import com.ACSlit.pro.treesitter.TSQueryCapture
+import com.tom.rv2ide.treesitter.TSQuery
+import com.tom.rv2ide.treesitter.TSQueryCapture
 import com.ACSlit.pro.utils.parseHexColor
 import io.github.rosemoe.sora.editor.ts.spans.DefaultSpanFactory
 import io.github.rosemoe.sora.editor.ts.spans.TsSpanFactory

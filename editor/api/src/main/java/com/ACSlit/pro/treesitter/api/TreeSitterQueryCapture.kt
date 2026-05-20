@@ -17,8 +17,8 @@
 
 package com.ACSlit.pro.treesitter.api
 
-import com.ACSlit.pro.treesitter.TSNode
-import com.ACSlit.pro.treesitter.TSQueryCapture
+import com.tom.rv2ide.treesitter.TSNode
+import com.tom.rv2ide.treesitter.TSQueryCapture
 import com.ACSlit.pro.utils.DefaultRecyclable
 import com.ACSlit.pro.utils.RecyclableObjectPool
 

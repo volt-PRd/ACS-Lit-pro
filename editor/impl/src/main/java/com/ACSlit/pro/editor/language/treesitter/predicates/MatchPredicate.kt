@@ -17,9 +17,9 @@
 
 package com.ACSlit.pro.editor.language.treesitter.predicates
 
-import com.ACSlit.pro.treesitter.TSQuery
-import com.ACSlit.pro.treesitter.TSQueryMatch
-import com.ACSlit.pro.treesitter.TSQueryPredicateStep
+import com.tom.rv2ide.treesitter.TSQuery
+import com.tom.rv2ide.treesitter.TSQueryMatch
+import com.tom.rv2ide.treesitter.TSQueryPredicateStep
 import io.github.rosemoe.sora.editor.ts.predicate.PredicateResult
 import io.github.rosemoe.sora.editor.ts.predicate.TsClientPredicateStep
 import io.github.rosemoe.sora.editor.ts.predicate.TsPredicate

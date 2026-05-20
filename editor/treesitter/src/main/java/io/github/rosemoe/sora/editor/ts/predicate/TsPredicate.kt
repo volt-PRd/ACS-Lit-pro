@@ -21,8 +21,8 @@
  */
 package io.github.rosemoe.sora.editor.ts.predicate
 
-import com.ACSlit.pro.treesitter.TSQuery
-import com.ACSlit.pro.treesitter.TSQueryMatch
+import com.tom.rv2ide.treesitter.TSQuery
+import com.tom.rv2ide.treesitter.TSQueryMatch
 
 /** Predicate client-side implementation */
 interface TsPredicate {

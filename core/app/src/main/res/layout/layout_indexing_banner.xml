@@ -15,32 +15,18 @@
   You should have received a copy of the GNU General Public License
    along with AndroidCodeStudio.  If not, see <https://www.gnu.org/licenses/>.
 -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <import type="android.view.View" />
-        
-        <variable
-            name="title"
-            type="String" />
-            
-        <variable
-            name="message"
-            type="String" />
-    </data>
-
-    <LinearLayout
-        android:id="@+id/bannerContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="24dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="24dp"
-        android:elevation="12dp"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_indexing_banner">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bannerContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="24dp"
+    android:paddingEnd="32dp"
+    android:paddingBottom="24dp"
+    android:elevation="12dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_indexing_banner">
 
         <ImageView
             android:id="@+id/iconImageView"
@@ -61,7 +47,7 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{title ?? `Indexing project`}"
+                android:text="Indexing project"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnBackground" />
@@ -71,12 +57,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{message ?? `Preparing...`}"
+                android:text="Preparing..."
                 android:textSize="13sp"
                 android:textColor="?attr/colorOnBackground" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-</layout>

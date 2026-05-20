@@ -25,7 +25,7 @@ import com.ACSlit.pro.editor.language.utils.CommonSymbolPairs
 import com.ACSlit.pro.lsp.api.ILanguageServer
 import com.ACSlit.pro.lsp.api.ILanguageServerRegistry
 import com.ACSlit.pro.lsp.java.JavaLanguageServer
-import com.ACSlit.pro.treesitter.java.TSLanguageJava
+import com.tom.rv2ide.treesitter.java.TSLanguageJava
 import io.github.rosemoe.sora.lang.Language.INTERRUPTION_LEVEL_SLIGHT
 import io.github.rosemoe.sora.util.MyCharacter
 import io.github.rosemoe.sora.widget.SymbolPairMatch

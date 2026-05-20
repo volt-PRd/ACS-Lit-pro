@@ -42,11 +42,11 @@ buildscript {
   }
 }
 
-tasks.configureEach {
-    if (name.contains("desugar", ignoreCase = true)) {
-        enabled = false
-    }
-}
+//tasks.configureEach {
+//    if (name.contains("desugar", ignoreCase = true)) {
+//        enabled = false
+//    }
+//}
 
 configurations.all {
   resolutionStrategy {
@@ -168,7 +168,10 @@ android {
   }
 }
 
-kapt { arguments { arg("eventBusIndex", "${BuildConfig.packageName}.events.AppEventsIndex") } }
+kapt {
+  correctErrorTypes = true
+  arguments { arg("eventBusIndex", "${BuildConfig.packageName}.events.AppEventsIndex") }
+}
 
 desugaring {
   replacements {
@@ -194,7 +197,7 @@ dependencies {
   implementation(projects.external.atc) 
   implementation(libs.external.customizable.cardview)
   implementation(projects.external.logwire)
-	implementation(libs.external.seasonal.effects)
+        implementation(libs.external.seasonal.effects)
   
   // Annotation processors
   kapt(libs.common.glide.ap)
