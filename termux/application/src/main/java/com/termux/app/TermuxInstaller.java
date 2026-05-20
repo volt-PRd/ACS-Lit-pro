@@ -30,6 +30,8 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -214,6 +216,14 @@ public final class TermuxInstaller {
                     if (!TERMUX_STAGING_PREFIX_DIR.renameTo(TERMUX_PREFIX_DIR)) {
                         throw new RuntimeException("Moving termux prefix staging to prefix directory failed");
                     }
+
+                    // CRITICAL FIX: The bootstrap ZIP (libtermux-bootstrap.so) was compiled
+                    // with the original package name "com.tom.rv2ide" hardcoded in shell
+                    // scripts (etc/profile, etc/bash.bashrc, profile.d/*.sh, second-stage.sh).
+                    // We must replace all occurrences with the current package name, otherwise
+                    // idesetup and bash will try to access the non-existent old path and fail
+                    // with "Permission denied".
+                    fixBootstrapPackagePaths();
 
                     // Fix permissions on filesDir, home, and usr directories
                     // Java's File.setExecutable(true) only sets owner permission (700),
@@ -411,6 +421,98 @@ public final class TermuxInstaller {
         Os.chmod(filesDir + "/usr/var", 0711);       // $PREFIX/var
 
         Logger.logInfo(LOG_TAG, "Directory permissions fixed successfully (0711).");
+    }
+
+    /**
+     * Fix hardcoded package paths in bootstrap shell scripts.
+     *
+     * The bootstrap ZIP embedded in libtermux-bootstrap.so was compiled with the
+     * original package name "com.tom.rv2ide" hardcoded in several shell scripts:
+     * - etc/profile
+     * - etc/bash.bashrc
+     * - etc/profile.d/01-termux-bootstrap-second-stage-fallback.sh
+     * - etc/termux/termux-bootstrap/second-stage/termux-bootstrap-second-stage.sh
+     *
+     * These scripts set TERMUX_PREFIX, source files from the old path, and run
+     * commands using the old path. If not fixed, idesetup and bash will try to
+     * access /data/data/com.tom.rv2ide/ which doesn't exist, causing
+     * "Permission denied" errors.
+     */
+    private static void fixBootstrapPackagePaths() throws Exception {
+        String oldPath = "/data/data/com.tom.rv2ide";
+        String newPath = TermuxConstants.TERMUX_INTERNAL_PRIVATE_APP_DATA_DIR_PATH;
+        String prefixDir = TERMUX_PREFIX_DIR_PATH;
+
+        if (oldPath.equals(newPath)) return; // Already correct, no fix needed
+
+        // List of shell script files known to contain hardcoded paths
+        String[] scriptsToFix = {
+            prefixDir + "/etc/profile",
+            prefixDir + "/etc/bash.bashrc",
+            prefixDir + "/etc/profile.d/01-termux-bootstrap-second-stage-fallback.sh",
+            prefixDir + "/etc/termux/termux-bootstrap/second-stage/termux-bootstrap-second-stage.sh",
+        };
+
+        int fixedFiles = 0;
+        for (String filePath : scriptsToFix) {
+            File file = new File(filePath);
+            if (!file.exists()) continue;
+
+            try {
+                String content = readFileToString(file);
+                if (content.contains(oldPath)) {
+                    String newContent = content.replace(oldPath, newPath);
+                    writeStringToFile(file, newContent);
+                    fixedFiles++;
+                    Logger.logInfo(LOG_TAG, "Fixed package path in: " + filePath);
+                }
+            } catch (Exception e) {
+                Logger.logError(LOG_TAG, "Failed to fix path in " + filePath + ": " + e.getMessage());
+            }
+        }
+
+        // Also do a recursive search for any other shell scripts with the old path
+        fixPathsRecursive(new File(prefixDir + "/etc"), oldPath, newPath);
+
+        Logger.logInfo(LOG_TAG, "Bootstrap package paths fixed (" + fixedFiles + " known files + recursive scan).");
+    }
+
+    private static void fixPathsRecursive(File dir, String oldPath, String newPath) {
+        File[] files = dir.listFiles();
+        if (files == null) return;
+        for (File file : files) {
+            if (file.isDirectory()) {
+                fixPathsRecursive(file, oldPath, newPath);
+            } else if (file.getName().endsWith(".sh") || file.canRead()) {
+                try {
+                    String content = readFileToString(file);
+                    if (content.contains(oldPath)) {
+                        writeStringToFile(file, content.replace(oldPath, newPath));
+                        Logger.logInfo(LOG_TAG, "Fixed package path in: " + file.getAbsolutePath());
+                    }
+                } catch (Exception ignored) {
+                    // Skip binary files or files we can't read as text
+                }
+            }
+        }
+    }
+
+    private static String readFileToString(File file) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = reader.read(buffer)) != -1) {
+                sb.append(buffer, 0, read);
+            }
+        }
+        return sb.toString();
+    }
+
+    private static void writeStringToFile(File file, String content) throws Exception {
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
+        }
     }
 
     public static byte[] loadZipBytes() {
