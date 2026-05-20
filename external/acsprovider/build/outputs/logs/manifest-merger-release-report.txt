@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml:2:13-83
+INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml:2:13-83
+	package
+		INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml
+	xmlns:android
+		ADDED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml:2:23-81
+uses-sdk
+INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml reason: use-sdk injection requested
+INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml
+INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml
+	android:targetSdkVersion
+		INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml
+	android:minSdkVersion
+		INJECTED from /home/z/my-project/android-code-studio/external/acsprovider/build/intermediates/tmp/ProcessLibraryManifest/release/tempAndroidManifest158462217844915674.xml
