@@ -194,7 +194,9 @@ public final class TermuxInstaller {
                                     if (zipEntryName.startsWith("bin/") || zipEntryName.startsWith("libexec") ||
                                         zipEntryName.startsWith("lib/apt/apt-helper") || zipEntryName.startsWith("lib/apt/methods")) {
                                         //noinspection OctalInteger
-                                        Os.chmod(targetFile.getAbsolutePath(), 0700);
+                                        // Use 0755 (rwxr-xr-x) instead of 0700 (rwx------) so that
+                                        // processes can execute these binaries properly.
+                                        Os.chmod(targetFile.getAbsolutePath(), 0755);
                                     }
                                 }
                             }
@@ -212,6 +214,13 @@ public final class TermuxInstaller {
                     if (!TERMUX_STAGING_PREFIX_DIR.renameTo(TERMUX_PREFIX_DIR)) {
                         throw new RuntimeException("Moving termux prefix staging to prefix directory failed");
                     }
+
+                    // Fix permissions on filesDir, home, and usr directories
+                    // Java's File.setExecutable(true) only sets owner permission (700),
+                    // but directories need at least 711 (rwx--x--x) so that the shell
+                    // process can traverse into them. Without the execute bit for others,
+                    // bash and other binaries cannot be found/executed.
+                    fixDirectoryPermissions();
 
                     Logger.logInfo(LOG_TAG, "Bootstrap packages installed successfully.");
 
@@ -370,6 +379,38 @@ public final class TermuxInstaller {
 
     private static Error ensureDirectoryExists(File directory) {
         return FileUtils.createDirectoryFile(directory.getAbsolutePath());
+    }
+
+    /**
+     * Fix permissions on critical directories after bootstrap extraction.
+     *
+     * Java's File.setExecutable(true) only sets the owner permission bit,
+     * resulting in 0700 (rwx------). Directories need at least 0711 (rwx--x--x)
+     * so that shell processes can traverse into them. Without the execute bit
+     * for others, bash and other binaries inside these directories cannot be
+     * found or executed, causing "Permission denied" errors.
+     *
+     * On non-rooted Android devices, chmod can only be applied within the app's
+     * own data directory (/data/data/&lt;package&gt;/files/), which is exactly
+     * where these directories reside.
+     */
+    private static void fixDirectoryPermissions() throws Exception {
+        // 0711 = rwx--x--x for directories (allows traversal)
+        // 0755 = rwxr-xr-x for executable files in bin/
+        String filesDir = TermuxConstants.TERMUX_FILES_DIR_PATH;
+
+        Os.chmod(filesDir, 0711);                    // /data/data/com.ACSlit.pro/files
+        Os.chmod(filesDir + "/home", 0711);          // home directory
+        Os.chmod(filesDir + "/usr", 0711);           // $PREFIX
+        Os.chmod(filesDir + "/usr/bin", 0711);       // $PREFIX/bin
+        Os.chmod(filesDir + "/usr/lib", 0711);       // $PREFIX/lib
+        Os.chmod(filesDir + "/usr/libexec", 0711);   // $PREFIX/libexec
+        Os.chmod(filesDir + "/usr/etc", 0711);       // $PREFIX/etc
+        Os.chmod(filesDir + "/usr/share", 0711);     // $PREFIX/share
+        Os.chmod(filesDir + "/usr/tmp", 0711);       // $PREFIX/tmp
+        Os.chmod(filesDir + "/usr/var", 0711);       // $PREFIX/var
+
+        Logger.logInfo(LOG_TAG, "Directory permissions fixed successfully (0711).");
     }
 
     public static byte[] loadZipBytes() {
