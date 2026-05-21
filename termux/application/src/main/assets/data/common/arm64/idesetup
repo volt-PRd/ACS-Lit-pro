@@ -1,0 +1,140 @@
+#!/system/bin/sh
+# idesetup - AndroidIDE Setup Tool
+# Replacement for ACS Lit Pro v1.0.3
+# Original binary had hardcoded old package path; this uses $PREFIX from env
+
+set -e
+
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+log_info() { echo -e "${CYAN}[idesetup]${NC} $1"; }
+log_ok() { echo -e "${GREEN}[idesetup]${NC} $1"; }
+log_warn() { echo -e "${YELLOW}[idesetup]${NC} $1"; }
+log_err() { echo -e "${RED}[idesetup]${NC} $1"; }
+
+INSTALL_DIR="" SDK_VERSION="" JDK_VERSION="" NDK_VERSION="0"
+ASSUME_YES=false WITH_GIT=false WITH_OPENSSH=false
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --install-dir) INSTALL_DIR="$2"; shift 2 ;;
+    --sdk) SDK_VERSION="$2"; shift 2 ;;
+    --jdk) JDK_VERSION="$2"; shift 2 ;;
+    --ndk) NDK_VERSION="${2:-0}"; shift 2 ;;
+    --assume-yes|-y) ASSUME_YES=true; shift ;;
+    --with-git) WITH_GIT=true; shift ;;
+    --with-openssh) WITH_OPENSSH=true; shift ;;
+    *) shift ;;
+  esac
+done
+
+export PREFIX="${PREFIX:-$(dirname $(dirname $0))/../../usr}"
+export HOME="${INSTALL_DIR:-$HOME}"
+export PATH="$PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export TMPDIR="${TMPDIR:-$PREFIX/tmp}"
+export TERMUX_PKG_NO_MIRROR_SELECT=true
+
+BASH="$PREFIX/bin/bash"
+
+if [ ! -x "$BASH" ]; then
+    log_err "bash not found at $BASH. Make sure bootstrap is installed."
+    exit 1
+fi
+
+log_info "Starting ACS Lit Pro IDE setup..."
+log_info "PREFIX=$PREFIX  HOME=$HOME"
+
+mkdir -p "$HOME" "$PREFIX/tmp"
+
+# Update apt
+log_info "Updating package lists..."
+apt update -y 2>&1 | tail -1
+
+# Install base tools
+for pkg in coreutils findutils wget unzip; do
+    command -v $pkg >/dev/null 2>&1 || apt install -y $pkg 2>&1 | tail -1
+done
+
+# Install JDK
+if [ -n "$JDK_VERSION" ]; then
+    JDK_DIR="$PREFIX/lib/jvm/java-${JDK_VERSION}-openjdk"
+    if [ -x "$JDK_DIR/bin/java" ]; then
+        log_ok "JDK $JDK_VERSION already installed"
+    else
+        log_info "Installing OpenJDK $JDK_VERSION..."
+        apt install -y "openjdk-${JDK_VERSION}" 2>&1 | tail -3
+        if [ -x "$JDK_DIR/bin/java" ]; then
+            log_ok "JDK $JDK_VERSION installed"
+        else
+            log_err "Failed to install JDK $JDK_VERSION"
+        fi
+    fi
+fi
+
+# Install git
+if [ "$WITH_GIT" = true ]; then
+    command -v git >/dev/null 2>&1 && log_ok "git already installed" || { apt install -y git 2>&1 | tail -3 && log_ok "git installed"; }
+fi
+
+# Install openssh
+if [ "$WITH_OPENSSH" = true ]; then
+    command -v ssh >/dev/null 2>&1 && log_ok "openssh already installed" || { apt install -y openssh 2>&1 | tail -3 && log_ok "openssh installed"; }
+fi
+
+# Setup Android SDK
+SDK_DIR="$HOME/android-sdk"
+CT_DIR="$SDK_DIR/cmdline-tools"
+
+if [ -d "$CT_DIR/latest/bin" ]; then
+    log_ok "SDK command-line tools already installed"
+else
+    log_info "Installing Android SDK command-line tools..."
+    mkdir -p "$CT_DIR"
+    wget -q --show-progress -O "$PREFIX/tmp/ct.zip" "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip"
+    cd "$CT_DIR" && unzip -q -o "$PREFIX/tmp/ct.zip" && rm -f "$PREFIX/tmp/ct.zip"
+    [ -d "$CT_DIR/cmdline-tools" ] && [ ! -d "$CT_DIR/latest" ] && mv "$CT_DIR/cmdline-tools" "$CT_DIR/latest"
+    log_ok "SDK command-line tools installed"
+fi
+
+export ANDROID_HOME="$SDK_DIR"
+export PATH="$CT_DIR/latest/bin:$SDK_DIR/platform-tools:$PATH"
+
+# Accept licenses
+log_info "Accepting SDK licenses..."
+yes | sdkmanager --licenses 2>/dev/null || true
+
+# Install SDK platform
+if [ -n "$SDK_VERSION" ]; then
+    if [ -d "$SDK_DIR/platforms/android-$SDK_VERSION" ]; then
+        log_ok "SDK platform $SDK_VERSION already installed"
+    else
+        log_info "Installing SDK platform $SDK_VERSION..."
+        sdkmanager "platforms;android-$SDK_VERSION" 2>&1 | tail -3
+        sdkmanager "build-tools;34.0.0" 2>&1 | tail -3
+        sdkmanager "platform-tools" 2>&1 | tail -3
+        log_ok "SDK platform $SDK_VERSION installed"
+    fi
+fi
+
+# Install NDK
+if [ -n "$NDK_VERSION" ] && [ "$NDK_VERSION" != "0" ]; then
+    if [ -d "$SDK_DIR/ndk/$NDK_VERSION" ]; then
+        log_ok "NDK $NDK_VERSION already installed"
+    else
+        log_info "Installing NDK $NDK_VERSION..."
+        sdkmanager "ndk;$NDK_VERSION" 2>&1 | tail -3
+        log_ok "NDK $NDK_VERSION installed"
+    fi
+fi
+
+echo ""
+log_ok "============================================="
+log_ok " ACS Lit Pro IDE setup completed!"
+log_ok "============================================="
+echo ""
+exit 0

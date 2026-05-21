@@ -1,0 +1,40 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:2:1-18:12
+INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:2:1-18:12
+	package
+		INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.GET_PACKAGE_SIZE
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:4:3-73
+	android:name
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:4:20-70
+uses-permission#android.permission.QUERY_ALL_PACKAGES
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:5:3-75
+	android:name
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:5:20-72
+queries
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:7:3-9:13
+package#io.github.mohammedbaqernull.logger
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:8:5-66
+	android:name
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:8:14-63
+application
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:11:3-16:17
+provider#io.github.mohammedbaqernull.logger.logwire.LogWireInitializer
+ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:12:5-15:33
+	android:authorities
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:14:7-65
+	android:exported
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:15:7-30
+	android:name
+		ADDED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml:13:7-41
+uses-sdk
+INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml
+INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/z/my-project/android-code-studio/external/logwire/src/main/AndroidManifest.xml
