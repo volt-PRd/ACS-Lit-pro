@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Using: /home/z/android-sdk/build-tools/35.0.0/aidl -p/home/z/android-sdk/platforms/android-36/framework.aidl -o/home/z/my-project/android-code-studio/external/logwire/build/generated/aidl_source_output_dir/release/out -I/home/z/my-project/android-code-studio/external/logwire/src/main/aidl -I/home/z/my-project/android-code-studio/external/logwire/src/release/aidl -d/tmp/aidl8253641543063736476.d /home/z/my-project/android-code-studio/external/logwire/src/main/aidl/io/github/mohammedbaqernull/logger/ILogWireService.aidl
+ * Using: /home/z/my-project/android-sdk/build-tools/35.0.0/aidl -p/home/z/my-project/android-sdk/platforms/android-36/framework.aidl -o/home/z/my-project/ACS-Lit-pro/external/logwire/build/generated/aidl_source_output_dir/debug/out -I/home/z/my-project/ACS-Lit-pro/external/logwire/src/main/aidl -I/home/z/my-project/ACS-Lit-pro/external/logwire/src/debug/aidl -d/tmp/aidl13364518586574385360.d /home/z/my-project/ACS-Lit-pro/external/logwire/src/main/aidl/io/github/mohammedbaqernull/logger/ILogWireService.aidl
  */
 package io.github.mohammedbaqernull.logger;
 public interface ILogWireService extends android.os.IInterface

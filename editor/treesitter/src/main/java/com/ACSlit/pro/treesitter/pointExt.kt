@@ -17,7 +17,7 @@
 
 package com.ACSlit.pro.treesitter
 
-import com.ACSlit.pro.treesitter.TSRange
+import com.tom.rv2ide.treesitter.TSRange
 
 /** The 0-based start line number. */
 val TSRange.startLine: Int

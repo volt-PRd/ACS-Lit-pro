@@ -15,7 +15,7 @@
  *   along with AndroidIDE.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ACSlit.pro.treesitter.api
+package com.tom.rv2ide.treesitter.api
 
 import com.ACSlit.pro.utils.RecyclableObjectPool
 import com.ACSlit.pro.utils.RecyclableObjectPool.Companion.CAPACITY_DEFAULT

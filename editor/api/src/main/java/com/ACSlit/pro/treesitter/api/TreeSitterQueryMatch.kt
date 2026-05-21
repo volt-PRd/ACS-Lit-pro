@@ -15,10 +15,10 @@
  *   along with AndroidIDE.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ACSlit.pro.treesitter.api
+package com.tom.rv2ide.treesitter.api
 
-import com.ACSlit.pro.treesitter.TSQueryCapture
-import com.ACSlit.pro.treesitter.TSQueryMatch
+import com.tom.rv2ide.treesitter.TSQueryCapture
+import com.tom.rv2ide.treesitter.TSQueryMatch
 import com.ACSlit.pro.utils.DefaultRecyclable
 import com.ACSlit.pro.utils.RecyclableObjectPool
 

@@ -15,9 +15,9 @@
  *   along with AndroidIDE.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ACSlit.pro.treesitter.api
+package com.tom.rv2ide.treesitter.api
 
-import com.ACSlit.pro.treesitter.TSLookaheadIterator
+import com.tom.rv2ide.treesitter.TSLookaheadIterator
 import com.ACSlit.pro.utils.DefaultRecyclable
 import com.ACSlit.pro.utils.RecyclableObjectPool
 

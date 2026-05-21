@@ -53,7 +53,7 @@ import com.ACSlit.pro.resources.localization.LocaleProvider
 import com.ACSlit.pro.stats.AndroidIDEStats
 import com.ACSlit.pro.stats.StatUploadWorker
 import com.ACSlit.pro.syntax.colorschemes.SchemeAndroidIDE
-import com.ACSlit.pro.treesitter.TreeSitter
+import com.tom.rv2ide.treesitter.TreeSitter
 import com.ACSlit.pro.ui.themes.IDETheme
 import com.ACSlit.pro.ui.themes.IThemeManager
 import com.ACSlit.pro.utils.ChartMemoryCleanupTask
