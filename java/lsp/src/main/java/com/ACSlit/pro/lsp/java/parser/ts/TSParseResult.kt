@@ -17,7 +17,7 @@
 
 package com.ACSlit.pro.lsp.java.parser.ts
 
-import com.tom.rv2ide.treesitter.TSTree
+import com.ACSlit.pro.treesitter.TSTree
 import java.net.URI
 import jdkx.tools.JavaFileObject
 

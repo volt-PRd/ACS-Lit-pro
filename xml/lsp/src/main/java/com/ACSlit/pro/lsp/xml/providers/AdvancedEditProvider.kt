@@ -28,14 +28,14 @@ import com.ACSlit.pro.lsp.models.TextEdit
 import com.ACSlit.pro.lsp.xml.XMLLanguageServer
 import com.ACSlit.pro.models.Range
 import com.ACSlit.pro.projects.FileManager
-import com.tom.rv2ide.treesitter.TSParser
-import com.tom.rv2ide.treesitter.TSQuery
-import com.tom.rv2ide.treesitter.TSQueryCapture
-import com.tom.rv2ide.treesitter.TSQueryCursor
-import com.tom.rv2ide.treesitter.TSQueryError
-import com.tom.rv2ide.treesitter.TSQueryMatch
-import com.tom.rv2ide.treesitter.TSTree
-import com.tom.rv2ide.treesitter.xml.TSLanguageXml
+import com.ACSlit.pro.treesitter.TSParser
+import com.ACSlit.pro.treesitter.TSQuery
+import com.ACSlit.pro.treesitter.TSQueryCapture
+import com.ACSlit.pro.treesitter.TSQueryCursor
+import com.ACSlit.pro.treesitter.TSQueryError
+import com.ACSlit.pro.treesitter.TSQueryMatch
+import com.ACSlit.pro.treesitter.TSTree
+import com.ACSlit.pro.treesitter.xml.TSLanguageXml
 
 /** @author Akash Yadav */
 object AdvancedEditProvider {

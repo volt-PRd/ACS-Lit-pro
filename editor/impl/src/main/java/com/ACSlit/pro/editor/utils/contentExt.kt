@@ -17,8 +17,8 @@
 
 package com.ACSlit.pro.editor.utils
 
-import com.tom.rv2ide.treesitter.TSNode
-import com.tom.rv2ide.treesitter.TSTree
+import com.ACSlit.pro.treesitter.TSNode
+import com.ACSlit.pro.treesitter.TSTree
 import com.ACSlit.pro.treesitter.getNodeAt
 import io.github.rosemoe.sora.text.Content
 import io.github.rosemoe.sora.text.TextUtils

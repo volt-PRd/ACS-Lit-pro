@@ -17,8 +17,8 @@
 
 package com.ACSlit.pro.treesitter
 
-import com.tom.rv2ide.treesitter.TSNode
-import com.tom.rv2ide.treesitter.TSPoint
+import com.ACSlit.pro.treesitter.TSNode
+import com.ACSlit.pro.treesitter.TSPoint
 
 /**
  * Get the first node at the line and column.

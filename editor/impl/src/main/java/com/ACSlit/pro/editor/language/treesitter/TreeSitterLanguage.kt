@@ -26,7 +26,7 @@ import com.ACSlit.pro.editor.schemes.LanguageScheme
 import com.ACSlit.pro.editor.schemes.LanguageSpecProvider.getLanguageSpec
 import com.ACSlit.pro.editor.schemes.LocalCaptureSpecProvider.newLocalCaptureSpec
 import com.ACSlit.pro.editor.utils.isNonBlankLine
-import com.tom.rv2ide.treesitter.TSLanguage
+import com.ACSlit.pro.treesitter.TSLanguage
 import com.ACSlit.pro.utils.IntPair
 import io.github.rosemoe.sora.editor.ts.TsTheme
 import io.github.rosemoe.sora.lang.Language.INTERRUPTION_LEVEL_STRONG

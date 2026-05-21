@@ -23,7 +23,7 @@ import com.ACSlit.pro.lsp.api.ILanguageServer
 import com.ACSlit.pro.lsp.api.ILanguageServerRegistry
 import com.ACSlit.pro.lsp.clang.ClangLanguageServer
 import io.github.rosemoe.sora.util.MyCharacter
-import com.tom.rv2ide.treesitter.cpp.TSLanguageCpp
+import com.ACSlit.pro.treesitter.cpp.TSLanguageCpp
 import io.github.rosemoe.sora.lang.Language.INTERRUPTION_LEVEL_STRONG
 
 /**

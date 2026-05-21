@@ -20,8 +20,8 @@ package com.ACSlit.pro.lsp.java.parser.ts
 import com.ACSlit.pro.eventbus.events.file.FileDeletionEvent
 import com.ACSlit.pro.eventbus.events.file.FileRenameEvent
 import com.ACSlit.pro.lsp.java.parser.IJavaParser
-import com.tom.rv2ide.treesitter.TSParser
-import com.tom.rv2ide.treesitter.java.TSLanguageJava
+import com.ACSlit.pro.treesitter.TSParser
+import com.ACSlit.pro.treesitter.java.TSLanguageJava
 import com.ACSlit.pro.utils.StopWatch
 import jdkx.tools.JavaFileObject
 import org.greenrobot.eventbus.EventBus

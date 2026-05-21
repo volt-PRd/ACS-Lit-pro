@@ -17,7 +17,7 @@
 
 package com.ACSlit.pro.treesitter.api
 
-import com.tom.rv2ide.treesitter.TSTreeCursorNode
+import com.ACSlit.pro.treesitter.TSTreeCursorNode
 import com.ACSlit.pro.utils.DefaultRecyclable
 import com.ACSlit.pro.utils.RecyclableObjectPool
 
