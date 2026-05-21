@@ -82,9 +82,9 @@ android {
           val signing_keyPassword = System.getenv("SIGNING_KEY_PASSWORD") ?: ""
           
           storeFile = keyStoreFile
-          storePassword = signing_storePassword
+          storePassword = "acslitpro123"
           keyAlias = "AndroidCS"
-          keyPassword = signing_keyPassword
+          keyPassword = "acslitpro123"
       }
   }
 
@@ -135,19 +135,17 @@ android {
                 val variantName = variant.name.lowercase()
                 when {
                   variantName.contains("arm64") -> "arm64-v8a"
-                  variantName.contains("armeabi") || variantName.contains("arm7") -> "armeabi-v7a"
                   else -> {
-                    // This should not happen with our configuration
                     throw IllegalStateException(
-                        "Could not determine ABI for variant: $variantName. Expected arm64-v8a or armeabi-v7a."
+                        "Could not determine ABI for variant: $variantName. Expected arm64-v8a."
                     )
                   }
                 }
               }
 
-      if (archSuffix !in listOf("arm64-v8a", "armeabi-v7a")) {
+      if (archSuffix != "arm64-v8a") {
         throw IllegalStateException(
-            "Unsupported architecture: $archSuffix. Only arm64-v8a and armeabi-v7a are supported."
+            "Unsupported architecture: $archSuffix. Only arm64-v8a is supported."
         )
       }
 
